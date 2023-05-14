@@ -53,14 +53,15 @@ FILE *fp = fopen("GCD.txt","w+");
 fpc = fopen("GCDC.txt","w+");
 fprintf(fp,"m\tn\tGCDM\tGCDS\tGCDC\n");
 
-int m,n;
+int m,n,min;
 int gm,gs,gc;
 srand(time(0));
 for(int i=1;i<=10;i++)
 {
-m = (rand()+1)%1000;
-n = (rand()+1)%1000;
-fprintf(fpc,"%d\t%d\t",m,n);
+m = (rand()+1)%100+m;
+n = (rand()+1)%100+n;
+min = m>n ? n : m;
+fprintf(fpc,"%d\t%d\t%d\t",m,n,min);
 gm = gcdm(m,n);
 gs = gcds(m,n);
 gc = gcdc(m,n);
@@ -68,6 +69,10 @@ fprintf(fp,"%d\t%d\t%d\t%d\t%d\n",m,n,gm,gs,gc);
 }
 fclose(fp);
 fclose(fpc);
-system("gedit GCD.txt GCDC.txt");
+FILE *fg = fopen("GCDplot.gnu","w");
+fprintf(fg,"set xlabel \"min{m,n}\"\nset ylabel \"t\"\nplot 'GCDC.txt' u 3 : 4 w l ti\"Ecuclid's\",'GCDC.txt' u 3 : 5 w l ti\"Subtraction\",'GCDC.txt' u 3 : 6 w l ti\"Consecutive Interger\" \nset term png\nset output \"GCD.png\"\nreplot\nset term x11");
+fclose(fg);
+system("gnuplot \"GCDplot.gnu\"");
+system("eog GCD.png");
 }
 
