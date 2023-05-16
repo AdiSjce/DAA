@@ -4,10 +4,10 @@
 int c=0;
 void bSort(int *a,int n)
 {
-	for(int i = 0;i<n;i++)
+	for(int i = 0;i<n-1;i++)
 	{
 		int ex=0;
-		for(int j=1;j<n;j++)
+		for(int j=1;j<n-1-i;j++)
 		{
 			c++;
 			if(a[j]<a[j-1])
@@ -77,7 +77,7 @@ void main()
 	fclose(fc);
 	fclose(f);
 	FILE *fg = fopen("BSplot.gnu","w");
-fprintf(fg,"set yrange [0:*]\nset xlabel \"n\"\nset ylabel \"t\"\nplot \"BSBest.txt\" w l ti \"Best Case\", \"BSWorst.txt\" w l smooth bezier ti \"Worst Case\", \"BSAvg.txt\" w l ti \"Average Case\"\nset term png\nset output \"BSG.png\"\nreplot\nset term x11");
+fprintf(fg,"set xlabel \"n\"\nset ylabel \"t\"\nplot \"BSBest.txt\" w l ti \"Best Case\", \"BSWorst.txt\" w l smooth bezier ti \"Worst Case\", \"BSAvg.txt\" w l ti \"Average Case\"\nset term png\nset output \"BSG.png\"\nreplot\nset term x11");
 fclose(fg);
 system("gnuplot \"BSplot.gnu\"");
 system("eog BSG.png");

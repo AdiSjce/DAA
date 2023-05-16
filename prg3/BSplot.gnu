@@ -1,4 +1,3 @@
-set yrange [0:*]
 set xlabel "n"
 set ylabel "t"
 plot "BSBest.txt" w l ti "Best Case", "BSWorst.txt" w l smooth bezier ti "Worst Case", "BSAvg.txt" w l ti "Average Case"
